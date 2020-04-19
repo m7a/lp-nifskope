@@ -39,7 +39,7 @@ License:
 <!-- bin directory as to avoid name clash -->
 <property name="mdpc.file.install">
 nifskope/release/NifSkope /usr/lib/nifskope
-nifskope/lang /usr/lib/nifskope
+nifskope/res/lang /usr/lib/nifskope
 nifskope/release/*.xml /usr/lib/nifskope
 bin/nifskope /usr/bin
 </property>
