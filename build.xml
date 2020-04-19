@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="build">
+
+<!-- APPLICATION METADATA -->
+<property name="mdpc.name"    value="nifskope"/>
+<property name="mdpc.section" value="games"/>
+<property name="mdpc.descrs"  value="NifSkope: .nif file editor"/>
+<property name="mdpc.arch"    value="any"/>
+<property name="mdpc.descrl">
+ Allows you to edit .nif files which are used e.g. with The Elder Scrolls IV:
+ Oblivion and other games.
+</property>
+<property name="mdpc.copyright" value="Copyright (c) 2005-2014, NIF File Format Library and Tools. All rights reserved."/>
+<property name="mdpc.lblock">
+License:
+ NIFSKOPE LICENSE
+ .
+ Copyright (c) 2005-2014, NIF File Format Library and Tools. All rights reserved.
+ .
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ .
+     Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+     Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+     The name of the NIF File Format Library and Tools project may not be used to endorse or promote products derived from this software without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ .
+ CREDITS
+ .
+ The Windows build of NifSkope uses Havok(R) for the generation of MOPP code. Copyright (c) 1999-2014 Havok.com Inc. (and its Licensors). All Rights Reserved. See www.havok.com for details.
+ .
+ NifSkope uses Qhull for the generation of convex hulls, from http://www.qhull.org. Copyright (c) 1993-2012 C.B. Barber and The Geometry Center. See Qhull_COPYING.txt for details and http://gitorious.org/qhull/ for the source.
+ .
+ NOTICE
+ .
+ Parts of NifSkope (i.e. included libraries) might be subject to other licenses. This license only applies to original NifSkope sources.
+</property>
+
+<!-- bin directory as to avoid name clash -->
+<property name="mdpc.file.install">
+nifskope/release/NifSkope /usr/lib/nifskope
+nifskope/lang /usr/lib/nifskope
+nifskope/release/*.xml /usr/lib/nifskope
+bin/nifskope /usr/bin
+</property>
+
+<!-- PART OF TPL HERE FOR USE IN BUILD -->
+<property environment="env"/>
+<condition property="masysma.internal.includepath.rel" value="${env.MDVL_CI_PHOENIX_ROOT}" else=".."><isset property="env.MDVL_CI_PHOENIX_ROOT"/></condition>
+<property name="masysma.internal.includepath" location="${masysma.internal.includepath.rel}"/>
+
+<!-- SPECIFIC BUILD -->
+<target name="download">
+	<!--<masysma_require_artifact masysmaartifact="nifskope.tar.bz2" masysmaatarget="." masysmaadef="https://github.com/niftools/nifskope/archive/v2.0.dev7.tar.gz"/>-->
+	<masysma_require_artifact masysmaartifact="nifskope.git" masysmaatarget="nifskope" masysmaadef="https://github.com/niftools/nifskope"/>
+</target>
+
+<target name="build" depends="clean,download">
+	<!--<move file="nifskope-2.0.dev7" tofile="build"/>-->
+	<copy tofile="nifskope/nifskope_pr_147.patch"
+					file="nifskope_pr_147.patch"/>
+	<exec executable="git" dir="nifskope" failonerror="true">
+		<arg value="apply"/>
+		<arg value="nifskope_pr_147.patch"/>
+	</exec>
+	<delete file="nifskope/nifskope_pr_147.patch"/>
+	<exec executable="qmake" dir="nifskope" failonerror="true"/>
+	<exec executable="make" dir="nifskope" failonerror="true">
+		<arg value="-j8"/>
+	</exec>
+</target>
+
+<target name="clean"><delete dir="nifskope"/></target>
+<target name="dist-clean" depends="clean"/>
+
+<!-- CI INTEGRATION -->
+<target name="package_triggered" depends="package">
+	<property name="masysma.ci.trigger" value="newver"/>
+</target>
+<target name="package_triggered_i386" depends="package">
+	<property name="masysma.ci.trigger"     value="newver"/>
+	<property name="masysma.ci.runenv"      value="ssh"/>
+	<property name="masysma.ci.runenv.name" value="i386"/>
+</target>
+
+<!-- TPL IMPORT (PARTIALLY GIVEN ABOVE) -->
+<property name="masysma.internal.loadpath" value="${masysma.internal.includepath}/co-build/ant-build-template.xml"/>
+<condition property="masysma.internal.load" value="file://${masysma.internal.loadpath}" else="https://raw.githubusercontent.com/m7a/co-build/master/ant-build-template.xml"><resourceexists><file file="${masysma.internal.loadpath}"/></resourceexists></condition>
+<import><url url="${masysma.internal.load}"/></import>
+
+</project>

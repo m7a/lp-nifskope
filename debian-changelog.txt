@@ -1,0 +1,11 @@
+nifskope (1.1.4) stable; urgency=low
+
+  * Corrected startup script.
+
+ -- Linux-Fan <Ma_Sys.ma@web.de>  Wed, 13 Feb 2013 13:33:50 +0100
+
+nifskope (1.1.3) stable; urgency=low
+
+  * mdvl-nifskope
+
+ -- Linux-Fan <Ma_Sys.ma@web.de>  Wed, 13 Feb 2013 11:36:13 +0100

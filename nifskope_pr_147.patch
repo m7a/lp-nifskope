@@ -1,0 +1,17 @@
+diff --git a/src/ui/widgets/lightingwidget.h b/src/ui/widgets/lightingwidget.h
+index 0524bcf..8f210a4 100644
+--- a/src/ui/widgets/lightingwidget.h
++++ b/src/ui/widgets/lightingwidget.h
+@@ -2,11 +2,11 @@
+ #define LIGHTINGWIDGET_H
+ 
+ #include <QWidget>
++#include <QAction>
+ 
+ #include <memory>
+ 
+ class GLView;
+-class QAction;
+ 
+ namespace Ui {
+ class LightingWidget;

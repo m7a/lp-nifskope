@@ -1,0 +1,2 @@
+#!/bin/sh -e
+exec /usr/lib/nifskope/NifSkope "$@"
