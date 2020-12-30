@@ -1,3 +1,9 @@
+nifskope (1.1.5) stable; urgency=medium
+
+  * Add trigger for armhf build.
+
+ -- Linux-Fan, Ma_Sys.ma <Ma_Sys.ma@web.de>  Thu, 31 Dec 2020 00:38:20 +0100
+
 nifskope (1.1.4) stable; urgency=low
 
   * Corrected startup script.

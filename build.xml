@@ -83,6 +83,11 @@ bin/nifskope /usr/bin
 	<property name="masysma.ci.runenv"      value="ssh"/>
 	<property name="masysma.ci.runenv.name" value="i386"/>
 </target>
+<target name="package_triggered_armhf" depends="package">
+	<property name="masysma.ci.trigger"     value="newver"/>
+	<property name="masysma.ci.runenv"      value="ssh"/>
+	<property name="masysma.ci.runenv.name" value="armhf"/>
+</target>
 
 <!-- TPL IMPORT (PARTIALLY GIVEN ABOVE) -->
 <property name="masysma.internal.loadpath" value="${masysma.internal.includepath}/co-build/ant-build-template.xml"/>
