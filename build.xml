@@ -2,11 +2,12 @@
 <project default="build">
 
 <!-- APPLICATION METADATA -->
-<property name="mdpc.name"    value="nifskope"/>
-<property name="mdpc.section" value="games"/>
-<property name="mdpc.descrs"  value="NifSkope: .nif file editor"/>
-<property name="mdpc.arch"    value="any"/>
-<property name="mdpc.bdep"    value="qt5-default"/>
+<property name="mdpc.name"     value="nifskope"/>
+<property name="mdpc.section"  value="games"/>
+<property name="mdpc.descrs"   value="NifSkope: .nif file editor"/>
+<property name="mdpc.arch"     value="any"/>
+<property name="mdpc.arch.not" value="armhf"/>
+<property name="mdpc.bdep"     value="qt5-default"/>
 <property name="mdpc.descrl">
  Allows you to edit .nif files which are used e.g. with The Elder Scrolls IV:
  Oblivion and other games.
